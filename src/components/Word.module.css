@@ -1,0 +1,26 @@
+.word {
+  display: inline-block;
+  background-color: rgb(68, 167, 197);
+  padding: 0 20px;
+  height: 40px;
+  line-height: 36px;
+  border-radius: 20px;
+  margin: 0 10px;
+  transition: 0.3s background-color;
+  width: 30%;
+  color: #fff;
+}
+
+.word:hover {
+  background-color: rgb(35, 140, 172);
+  cursor: pointer;
+}
+
+.chosen {
+  background-color: rgb(3, 114, 148);
+}
+
+.chosen:hover {
+  background-color: rgb(3, 114, 148);
+  cursor: default;
+}
