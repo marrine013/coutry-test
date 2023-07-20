@@ -1,51 +1,36 @@
-import { useState } from 'react';
-
 import Word from './Word';
 import styles from './WordPair.module.css';
-
-// const WordPair = props => {
-//   return (
-//     <li className={styles['word-pair']}>
-//       <Word word={props.word1} /> - <Word word={props.word2} />
-//     </li>
-//   );
-// };
 
 const WordPair = ({
   firstIndex,
   firstWord,
   secondIndex,
-  secondWord /* ,
-  name */
-  // onSelect
+  secondWord,
+  name,
+  onSelect
 }) => {
-  // const [isChosen, setIsChosen] = useState(false);
+  const handleWordClick = event => {
+    onSelect(name, event.target.value);
+  };
 
-  // const handleWordClick = event => {
-  //   // onSelect(word);
-  //   console.log(
-  //     event.target.getAttribute('data-index'),
-  //     event.target.textContent
-  //   );
-  // };
-
-  // console.log(name);
   return (
     <li className={styles['word-pair']}>
       <Word
         word={firstWord}
         index={firstIndex}
-
+        name={name}
+        id={`${name}-1`}
         // onClick={() => handleWordClick(firstWord)}
-        // onClick={handleWordClick}
+        onClick={handleWordClick}
       />
       {' - '}
       <Word
         word={secondWord}
         index={secondIndex}
-
+        name={name}
+        id={`${name}-2`}
         // onClick={() => handleWordClick(secondWord)}
-        // onClick={handleWordClick}
+        onClick={handleWordClick}
       />
     </li>
   );

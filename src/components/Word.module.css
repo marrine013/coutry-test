@@ -1,6 +1,6 @@
-.word {
+.word label {
   display: inline-block;
-  background-color: rgb(68, 167, 197);
+  background-color: #44a7c5;
   padding: 0 20px;
   height: 40px;
   line-height: 36px;
@@ -11,16 +11,27 @@
   color: #fff;
 }
 
-.word:hover {
-  background-color: rgb(35, 140, 172);
+.word label:hover {
+  background-color: #238cac;
   cursor: pointer;
 }
 
-.chosen {
-  background-color: rgb(3, 114, 148);
+.word input[type='radio'] {
+  opacity: 0;
+  position: fixed;
+  width: 0;
 }
 
-.chosen:hover {
+.word input[type='radio']:checked + label {
   background-color: rgb(3, 114, 148);
   cursor: default;
 }
+
+/* .chosen label {
+  background-color: rgb(3, 114, 148);
+}
+
+.chosen label:hover {
+  background-color: rgb(3, 114, 148);
+  cursor: default;
+} */
