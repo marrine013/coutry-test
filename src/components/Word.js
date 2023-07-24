@@ -1,15 +1,14 @@
-import { useState } from 'react';
 import styles from './Word.module.css';
 
-// const Word = props => {
-//   return <span className={styles.word}>{props.word}</span>;
-// };
-
-const Word = ({ word, index, name, id, onClick }) => {
-  // const changeHandler = event => {
-  //   console.log(event.target.value);
-  // };
-
+/* const Word = ({
+  word,
+  index,
+  name,
+  id,
+  onClick,
+  checkedRadio,
+  setCheckedRadio
+}) => {
   return (
     <span className={styles.word} data-index={index}>
       <input
@@ -18,6 +17,31 @@ const Word = ({ word, index, name, id, onClick }) => {
         id={id}
         value={`${index} ${word}`}
         onChange={onClick}
+        checked={checkedRadio[name] === id}
+        onClick={setCheckedRadio}
+      />
+      <label htmlFor={id}> {word}</label>
+    </span>
+  );
+};
+
+export default Word;
+ */
+
+const Word = ({ word, index, name, id, onClick, selectedId }) => {
+  const handleWordClick = event => {
+    onClick(name, event.target.value, event.target.id);
+  };
+
+  return (
+    <span className={styles.word} data-index={index}>
+      <input
+        type='radio'
+        name={name}
+        id={id}
+        value={`${index} ${word}`}
+        onChange={handleWordClick}
+        checked={selectedId === id}
       />
       <label htmlFor={id}> {word}</label>
     </span>

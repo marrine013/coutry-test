@@ -1,9 +1,9 @@
 import WordPair from './WordPair';
 import styles from './WorldList.module.css';
 
-const WordList = ({ pairs, onChosen }) => {
-  const onSelect = (index, word) => {
-    onChosen(index, word);
+const WordList = ({ pairs, onChosen, checkedRadio, setCheckedRadio }) => {
+  const onSelect = (index, word, id) => {
+    onChosen(index, word, id);
   };
 
   return (
@@ -17,6 +17,8 @@ const WordList = ({ pairs, onChosen }) => {
           secondIndex={pair[2]}
           secondWord={pair[3]}
           onSelect={onSelect}
+          checkedRadio={checkedRadio}
+          setCheckedRadio={setCheckedRadio}
         />
       ))}
     </ul>
