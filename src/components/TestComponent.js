@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import WordList from './WordList';
 import styles from './TestComponent.module.css';
 
+// const chosenKeys = {};
 const initialData = {
   d: [
     'величина',
@@ -114,15 +115,19 @@ function generateWordPairs(data) {
   const pairs = [];
   let keys = Object.keys(data);
 
+  //если остается только 1 массив с 2 словами - выводить из него
   while (keys.length > 1) {
     let maxLength = Math.max(...keys.map(key => data[key].length));
     // console.log(`maxLength ${maxLength}`); ////////////////////////////
     let longestKeys = keys.filter(key => data[key].length === maxLength);
 
-    while (longestKeys.length === 1) {
-      let newMaxLength = maxLength - 1;
-      // console.log(`new maxLength ${newMaxLength}`); ////////////////////////////
-      longestKeys = keys.filter(key => data[key].length >= newMaxLength);
+    // если разница между самым длинным массивом больше 1 (например, длина самого длинного 8, длее все по 6 )
+    //- получаем бесконечный цикл!
+    while (longestKeys.length < 2) {
+      maxLength = maxLength - 1;
+      // console.log(`new maxLength ${maxLength}`); ////////////////////////////
+      // eslint-disable-next-line
+      longestKeys = keys.filter(key => data[key].length >= maxLength);
     }
     // console.log(`longestKeys ${longestKeys}`); ////////////////////////////
     const randIndex1 = Math.floor(Math.random() * longestKeys.length);
@@ -159,6 +164,15 @@ function generateWordPairs(data) {
     }
   }
 
+  if (keys.length === 1) {
+    console.log('there will be the same letters');
+    pairs.push([keys[0], data[keys[0]][0], keys[0], data[keys[0]][1]]);
+
+    console.log(data, keys[0]);
+    console.log(data[keys[0]]);
+    console.log(data[keys[0]][0], data[keys[0]][1]);
+  }
+
   console.log(pairs);
   return pairs;
 }
@@ -170,14 +184,18 @@ const TestComponent = () => {
   const [isDisabled, setIsDisabled] = useState(true);
   const [checkedRadio, setCheckedRadio] = useState({});
   const [isNextClicked, setIsNextClicked] = useState(false);
+  const [chosenKeys, setChosenKeys] = useState({});
+  const [showResults, setShowResults] = useState(false);
+  const [userIndex, setUserIndex] = useState([]);
 
   useEffect(() => {
     if (isNextClicked) {
       setCheckedRadio({});
+      setChosenWords({});
       setIsNextClicked(false);
       setIsDisabled(true);
     }
-  }, [isNextClicked, isDisabled]);
+  }, [isNextClicked, isDisabled, chosenWords, checkedRadio]);
 
   useEffect(() => {
     const newPairs = generateWordPairs(data);
@@ -213,13 +231,58 @@ const TestComponent = () => {
     }
 
     setIsNextClicked(true);
-    console.log(`newData: ${JSON.stringify(newData)}`);
+    console.log(`newData: ${JSON.stringify(newData)}`); /////////
+
+    if (pairs.length === 5) {
+      console.log('generate index');
+      setShowResults(true);
+      const сhosenKeysFinale = { ...chosenKeys };
+      for (let key in newData) {
+        сhosenKeysFinale[key] =
+          (сhosenKeysFinale[key] || 0) + newData[key].length;
+      }
+      console.log(`chosenKeysFinale: ${JSON.stringify(сhosenKeysFinale)}`);
+      setChosenKeys(сhosenKeysFinale);
+
+      const sortedKeys = Object.keys(chosenKeys).sort((a, b) => {
+        return chosenKeys[b] - chosenKeys[a];
+      });
+
+      setUserIndex(sortedKeys);
+
+      return;
+    }
+
+    if (pairs.length === 40) {
+      for (let key in newData) {
+        chosenKeys[key] = newData[key].length;
+      }
+    } else {
+      for (let key in newData) {
+        chosenKeys[key] += newData[key].length;
+      }
+    }
+
+    console.log(`chosenKeys: ${JSON.stringify(chosenKeys)}`);
     setData(newData);
-    // setCheckedRadio({});// тут все зависает
-    // setIsDisabled(true);
   };
 
-  return (
+  const screenOutput = showResults ? (
+    <div>
+      <h2>Результаты:</h2>
+      <ul>
+        {Object.entries(chosenKeys).map(([key, value]) => (
+          <li key={key}>
+            {key}: {value}
+          </li>
+        ))}
+      </ul>
+      <br />
+      <div>
+        <b>Ваш индекс:</b> <h1>{userIndex}</h1>
+      </div>
+    </div>
+  ) : (
     <form className={styles.form} onSubmit={submitHandler}>
       <WordList
         pairs={pairs}
@@ -232,6 +295,8 @@ const TestComponent = () => {
       </button>
     </form>
   );
+
+  return screenOutput;
 };
 
 export default TestComponent;

@@ -1,18 +1,43 @@
 .word label {
   display: inline-block;
-  background-color: #44a7c5;
+  background-color: /* #44a7c5; */ #cadfe6;
   padding: 0 20px;
   height: 40px;
   line-height: 36px;
   border-radius: 20px;
-  margin: 0 10px;
+  margin: 0 5px;
   transition: 0.3s background-color;
-  width: 30%;
-  color: #fff;
+  width: 44%;
+  color: #075e78;
+  font-size: 0.75rem;
+}
+
+@media screen and (min-width: 768px) {
+  .word label {
+    font-size: 1rem;
+    width: 30%;
+    margin: 0 10px;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .word label {
+    width: 20%;
+    font-size: 1.2rem;
+    height: 50px;
+    line-height: 44px;
+    border-radius: 25px;
+  }
+}
+
+@media screen and (min-width: 1400px) {
+  .word label {
+    width: 15%;
+  }
 }
 
 .word label:hover {
-  background-color: #238cac;
+  background-color: #a5c8d4;
   cursor: pointer;
 }
 
@@ -23,8 +48,9 @@
 }
 
 .word input[type='radio']:checked + label {
-  background-color: rgb(3, 114, 148);
+  background-color: #7cacbc;
   cursor: default;
+  color: #fff;
 }
 
 /* .chosen label {

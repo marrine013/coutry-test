@@ -1,33 +1,5 @@
 import styles from './Word.module.css';
 
-/* const Word = ({
-  word,
-  index,
-  name,
-  id,
-  onClick,
-  checkedRadio,
-  setCheckedRadio
-}) => {
-  return (
-    <span className={styles.word} data-index={index}>
-      <input
-        type='radio'
-        name={name}
-        id={id}
-        value={`${index} ${word}`}
-        onChange={onClick}
-        checked={checkedRadio[name] === id}
-        onClick={setCheckedRadio}
-      />
-      <label htmlFor={id}> {word}</label>
-    </span>
-  );
-};
-
-export default Word;
- */
-
 const Word = ({ word, index, name, id, onClick, selectedId }) => {
   const handleWordClick = event => {
     onClick(name, event.target.value, event.target.id);
