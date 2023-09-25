@@ -3,9 +3,58 @@ import { useState, useEffect } from 'react';
 import WordList from './WordList';
 import styles from './TestComponent.module.css';
 
-// const chosenKeys = {};
+const countriesList = {
+  Австралія: 'NEMDISCA',
+  Австрія: 'ENDCSMIA',
+  Азербайджан: 'CAIDNSEM',
+  Аргентина: 'SCADNMIE',
+  Вірменія: 'NACDISEM',
+  Бельгія: 'EDCANIMS',
+  Боснія: 'ANCESDIM',
+  Болгарія: 'NACSDEIM',
+  Бразилія: 'NAIDESCM',
+  Великобританія: 'CESNDAIM',
+  Греція: 'CNASEDIM',
+  Грузія: 'NCDAESIM',
+  Данія: 'SENCIMDA',
+  Естонія: 'IDNAESCM',
+  Ізраїль: 'ADCIEMNS',
+  Індія: 'DAICENSM',
+  Ірландія: 'DEACMSNI',
+  Ісландія: 'NDSEMICA',
+  Іспанія: 'NCDSIAEM',
+  Італія: 'CDNESAMI',
+  Канада: 'ENMSDICA',
+  Кіпр: 'NAICDESM',
+  Китай: 'IDESACNM',
+  Корея: 'IEACNDMS',
+  Куба: 'SNCMADEI',
+  Латвія: 'IDCANESM',
+  Литва: 'ICDANSEM',
+  Мальта: 'NDICESAM',
+  Німеччина: 'SECIDAMN',
+  'Новая Зеландія': 'NECMSIDA',
+  Норвегія: 'ESDINMCA',
+  Парагвай: 'NDACESIM',
+  Польща: 'DICASENM',
+  Португалія: 'NICSADEM',
+  Сербія: 'ASNDCIEM',
+  Словаччина: 'NDCASEIM',
+  Словенія: 'NDCESIMA',
+  США: 'IDAEMCNS',
+  Туреччина: 'DACIEMNS',
+  Фінляндія: 'SNEICMDA',
+  Франція: 'SCENAMID',
+  Чорногорія: 'NCDSEAIM',
+  Чехія: 'IDESCANM',
+  Хорватія: 'NDCSEAIM',
+  Швейцарія: 'EDMNICSA',
+  Швеція: 'SEMIDACN',
+  Японія: 'IDCENMAS'
+};
+
 const initialData = {
-  d: [
+  D: [
     'величина',
     'разнообразие',
     'популярность',
@@ -17,7 +66,7 @@ const initialData = {
     'общество',
     'рождаемость'
   ],
-  e: [
+  E: [
     'стабильность',
     'гордость',
     'уверенность',
@@ -29,7 +78,7 @@ const initialData = {
     'надёжность',
     'упорядоченность'
   ],
-  s: [
+  S: [
     'забота',
     'солидарность',
     'открытость',
@@ -41,7 +90,7 @@ const initialData = {
     'принятие',
     'единство'
   ],
-  n: [
+  N: [
     'экологичность',
     'естественность',
     'тепло',
@@ -53,7 +102,7 @@ const initialData = {
     'свежесть',
     'ухоженность'
   ],
-  a: [
+  A: [
     'понятность',
     'порядок',
     'обособленность',
@@ -65,7 +114,7 @@ const initialData = {
     'сила',
     'решимость'
   ],
-  c: [
+  C: [
     'красота',
     'образованность',
     'терпеливость',
@@ -77,7 +126,7 @@ const initialData = {
     'творчество',
     'созидание'
   ],
-  m: [
+  M: [
     'спокойствие',
     'комфорт',
     'дружелюбие',
@@ -89,7 +138,7 @@ const initialData = {
     'устойчивость',
     'умиротворение'
   ],
-  i: [
+  I: [
     'инновационность',
     'интеллект',
     'новшество',
@@ -110,43 +159,27 @@ function getRandomWord(arr) {
 }
 
 function generateWordPairs(data) {
-  // console.log(`data: ${JSON.stringify(data)}`);
-
   const pairs = [];
   let keys = Object.keys(data);
 
-  //если остается только 1 массив с 2 словами - выводить из него
   while (keys.length > 1) {
     let maxLength = Math.max(...keys.map(key => data[key].length));
-    // console.log(`maxLength ${maxLength}`); ////////////////////////////
     let longestKeys = keys.filter(key => data[key].length === maxLength);
 
-    // если разница между самым длинным массивом больше 1 (например, длина самого длинного 8, длее все по 6 )
-    //- получаем бесконечный цикл!
     while (longestKeys.length < 2) {
       maxLength = maxLength - 1;
-      // console.log(`new maxLength ${maxLength}`); ////////////////////////////
       // eslint-disable-next-line
       longestKeys = keys.filter(key => data[key].length >= maxLength);
     }
-    // console.log(`longestKeys ${longestKeys}`); ////////////////////////////
-    const randIndex1 = Math.floor(Math.random() * longestKeys.length);
-    // console.log(`randIndex1 ${randIndex1}`); ////////////////////////////
-    const firstKey = longestKeys[randIndex1];
-    // console.log(`firstKey ${firstKey}`); ////////////////////////////
-    const firstWord = getRandomWord(data[firstKey]);
-    // console.log(`firstWord ${firstWord}`); ////////////////////////////
 
+    const randIndex1 = Math.floor(Math.random() * longestKeys.length);
+    const firstKey = longestKeys[randIndex1];
+    const firstWord = getRandomWord(data[firstKey]);
     longestKeys.splice(randIndex1, 1);
 
     const randIndex2 = Math.floor(Math.random() * longestKeys.length);
-    // console.log(`randIndex2 ${randIndex2}`); ////////////////////////////
     const secondKey = longestKeys[randIndex2];
-    // console.log(`secondKey ${secondKey}`); ////////////////////////////
     const secondWord = getRandomWord(data[secondKey]);
-    // console.log(`secondWord ${secondWord}`); ////////////////////////////
-
-    // console.log(firstKey, firstWord, secondKey, secondWord); /////////////////////////
 
     pairs.push([firstKey, firstWord, secondKey, secondWord]);
 
@@ -177,6 +210,103 @@ function generateWordPairs(data) {
   return pairs;
 }
 
+function findDuplicateIndexes(sortedArray) {
+  const duplicateIndexes = {};
+  let prevValue = null;
+  let prevIndex = null;
+
+  for (let i = 0; i < sortedArray.length; i++) {
+    const currentValue = sortedArray[i];
+
+    if (prevValue === null) {
+      prevValue = currentValue;
+      prevIndex = i;
+      continue;
+    }
+
+    if (currentValue === prevValue) {
+      if (!duplicateIndexes[currentValue]) {
+        duplicateIndexes[currentValue] = [prevIndex];
+      }
+      duplicateIndexes[currentValue].push(i);
+    } else {
+      prevValue = currentValue;
+      prevIndex = i;
+    }
+  }
+
+  console.log(duplicateIndexes);
+  return duplicateIndexes;
+}
+
+function setWeightIndexes(indexes, sortedArray) {
+  const duplicateIndexes = findDuplicateIndexes(sortedArray);
+
+  for (const value in duplicateIndexes) {
+    const indexesToAdjust = duplicateIndexes[value];
+    const sum = indexesToAdjust.reduce(
+      (total, index) => total + indexes[index],
+      0
+    );
+    const average = sum / indexesToAdjust.length;
+
+    for (const index of indexesToAdjust) {
+      indexes[index] = average;
+    }
+  }
+
+  return indexes;
+}
+
+function setImportanceIndexes(originalArray) {
+  return originalArray.map((value, index) => {
+    if (index < 4) {
+      return value; // Оставляем первые 4 элемента как есть
+    } else {
+      return originalArray[0] - value; // Вычисляем и возвращаем остальные 4 элемента
+    }
+  });
+}
+
+function calculateSimilarity(userIndex, countryIndex, importanceIndexes) {
+  const positionWeights = [4, 3, 2, 1, -1, -2, -3, -4]; // Баллы для каждой позиции
+  const weightIndexes = [4, 3, 2, 1, 1, 2, 3, 4]; // коєффициенты расположения - !!!!! если одинаковые баллы у букв, коэффициенты уравниваем!!!!!
+
+  let similarity = 0;
+  let temp = 0;
+
+  for (let i = 0; i < userIndex.length; i++) {
+    for (let j = 0; j < countryIndex.length; j++) {
+      if (userIndex[i] === countryIndex[j]) {
+        temp = i;
+
+        // if (i === 6 || i === 7) {
+        //   //// для частного случая! 1 - использовать объект duplicateIndexes чтобы выбрать эти индексы
+        //   temp = 6.5;
+        // }
+        // 2 - сделать рефакторинг
+        const positionDifference = Math.abs(temp - j);
+
+        const positionDifferenceMax = Math.ceil(positionDifference);
+        const positionDifferenceMin = Math.floor(positionDifference);
+
+        similarity +=
+          0.5 *
+          (positionWeights[positionDifferenceMax] +
+            positionWeights[positionDifferenceMin]) *
+          importanceIndexes[i] *
+          weightIndexes[i];
+
+        break; // Найдена буква, переходим к следующей из userIndex
+      }
+    }
+
+    //     console.log(`${similarity}, ${userIndex[i]}`);
+  }
+
+  return similarity;
+}
+
 const TestComponent = () => {
   const [data, setData] = useState(initialData);
   const [pairs, setPairs] = useState([]);
@@ -187,6 +317,7 @@ const TestComponent = () => {
   const [chosenKeys, setChosenKeys] = useState({});
   const [showResults, setShowResults] = useState(false);
   const [userIndex, setUserIndex] = useState([]);
+  const [resultedCountries, setResultedCountries] = useState([]);
 
   useEffect(() => {
     if (isNextClicked) {
@@ -234,7 +365,6 @@ const TestComponent = () => {
     console.log(`newData: ${JSON.stringify(newData)}`); /////////
 
     if (pairs.length === 5) {
-      console.log('generate index');
       setShowResults(true);
       const сhosenKeysFinale = { ...chosenKeys };
       for (let key in newData) {
@@ -247,6 +377,49 @@ const TestComponent = () => {
       const sortedKeys = Object.keys(chosenKeys).sort((a, b) => {
         return chosenKeys[b] - chosenKeys[a];
       });
+      /////////////////////////////////////////////////////
+      const userIndex = sortedKeys.join('');
+      const sortedValues = Object.values(chosenKeys).sort((a, b) => {
+        return b - a;
+      });
+
+      console.log(`sortedValues ${sortedValues}`); ///////////////
+
+      const importanceIndexes = setImportanceIndexes(sortedValues);
+      const indexes = [4, 3, 2, 1, 1, 2, 3, 4]; ////// to move all these somewhere
+      const weightIndexes = setWeightIndexes([...indexes], sortedValues);
+
+      console.log(`weightIndexes ${weightIndexes}`); ///////////
+
+      const results = [];
+
+      for (const [key, value] of Object.entries(countriesList)) {
+        const similarity = calculateSimilarity(
+          userIndex,
+          value,
+          importanceIndexes,
+          weightIndexes
+        );
+        results.push({ key, value, similarity });
+      }
+
+      // Сортируем результаты по убыванию сходства (similarity)
+      results.sort((a, b) => b.similarity - a.similarity);
+
+      for (const result of results) {
+        console.log(
+          `Индекс сходства: ${result.key} ${result.value} - ${result.similarity}`
+        );
+      }
+      //////////////////////////
+      // const suitedCountries = results.slice(0, 5);
+      setResultedCountries(results.slice(0, 5));
+      // console.log(`RESULTS: ${screenResults}`);
+      for (const result of resultedCountries) {
+        console.log(
+          `RESULTS: ${result.key} ${result.value} - ${result.similarity}`
+        );
+      }
 
       setUserIndex(sortedKeys);
 
@@ -280,6 +453,15 @@ const TestComponent = () => {
       <br />
       <div>
         <b>Ваш индекс:</b> <h1>{userIndex}</h1>
+      </div>
+      <br />
+      <div>
+        <h2>Страны, которые подхлдят вам больше всего:</h2>
+        {resultedCountries.map(result => (
+          <li>
+            {result.key} {result.value}
+          </li>
+        ))}
       </div>
     </div>
   ) : (
