@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/coutry-test/static/css/main.7c3c5fec.css",
-    "main.js": "/coutry-test/static/js/main.1329859f.js",
+    "main.js": "/coutry-test/static/js/main.92d61fe6.js",
     "index.html": "/coutry-test/index.html",
     "main.7c3c5fec.css.map": "/coutry-test/static/css/main.7c3c5fec.css.map",
-    "main.1329859f.js.map": "/coutry-test/static/js/main.1329859f.js.map"
+    "main.92d61fe6.js.map": "/coutry-test/static/js/main.92d61fe6.js.map"
   },
   "entrypoints": [
     "static/css/main.7c3c5fec.css",
-    "static/js/main.1329859f.js"
+    "static/js/main.92d61fe6.js"
   ]
 }
