@@ -307,6 +307,11 @@ function calculateSimilarity(userIndex, countryIndex, importanceIndexes) {
   return similarity;
 }
 
+function findAbsentKeys(arr) {
+  const sortedIndex = ['A', 'C', 'D', 'E', 'I', 'M', 'N', 'S'];
+  return sortedIndex.filter(item => !arr.includes(item));
+}
+
 const TestComponent = () => {
   const [data, setData] = useState(initialData);
   const [pairs, setPairs] = useState([]);
@@ -352,6 +357,8 @@ const TestComponent = () => {
   const submitHandler = event => {
     event.preventDefault();
 
+    console.log(chosenWords); /////////////
+
     const newData = {};
     for (let key in chosenWords) {
       let arr = chosenWords[key].split(' ');
@@ -377,8 +384,9 @@ const TestComponent = () => {
       const sortedKeys = Object.keys(chosenKeys).sort((a, b) => {
         return chosenKeys[b] - chosenKeys[a];
       });
+      console.log(`sortedKeys: ${sortedKeys}`);
       /////////////////////////////////////////////////////
-      const userIndex = sortedKeys.join('');
+      const sortedKeysStr = sortedKeys.join('');
       const sortedValues = Object.values(chosenKeys).sort((a, b) => {
         return b - a;
       });
@@ -395,7 +403,7 @@ const TestComponent = () => {
 
       for (const [key, value] of Object.entries(countriesList)) {
         const similarity = calculateSimilarity(
-          userIndex,
+          sortedKeysStr,
           value,
           importanceIndexes,
           weightIndexes
@@ -430,6 +438,10 @@ const TestComponent = () => {
       for (let key in newData) {
         chosenKeys[key] = newData[key].length;
       }
+      if (Object.keys(chosenKeys).length < 8) {
+        let absentKeys = findAbsentKeys(Object.keys(chosenKeys));
+        absentKeys.forEach(key => (chosenKeys[key] = 0));
+      }
     } else {
       for (let key in newData) {
         chosenKeys[key] += newData[key].length;
@@ -456,7 +468,7 @@ const TestComponent = () => {
       </div>
       <br />
       <div>
-        <h2>Страны, которые подхлдят вам больше всего:</h2>
+        <h2>Страны, которые подходят вам больше всего:</h2>
         {resultedCountries.map(result => (
           <li>
             {result.key} {result.value}
