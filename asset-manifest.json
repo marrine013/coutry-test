@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/coutry-test/static/css/main.7c3c5fec.css",
-    "main.js": "/coutry-test/static/js/main.787c1947.js",
+    "main.css": "/coutry-test/static/css/main.45be2192.css",
+    "main.js": "/coutry-test/static/js/main.d25f057e.js",
     "index.html": "/coutry-test/index.html",
-    "main.7c3c5fec.css.map": "/coutry-test/static/css/main.7c3c5fec.css.map",
-    "main.787c1947.js.map": "/coutry-test/static/js/main.787c1947.js.map"
+    "main.45be2192.css.map": "/coutry-test/static/css/main.45be2192.css.map",
+    "main.d25f057e.js.map": "/coutry-test/static/js/main.d25f057e.js.map"
   },
   "entrypoints": [
-    "static/css/main.7c3c5fec.css",
-    "static/js/main.787c1947.js"
+    "static/css/main.45be2192.css",
+    "static/js/main.d25f057e.js"
   ]
 }
