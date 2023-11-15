@@ -478,6 +478,11 @@ const TestComponent = () => {
     </div>
   ) : (
     <form className={styles.form} onSubmit={submitHandler}>
+      <h1>Тест: Какие страны вам больше всего подходят?</h1>
+      <p>
+        В каждой паре выберите по одному понятию (выбирайте, что вам ближе или
+        важнее), затем нажмите кнопку <b>Далее</b>
+      </p>
       <WordList
         pairs={pairs}
         onChosen={handleWordChosen}
